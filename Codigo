@@ -4,25 +4,29 @@
 Servo myservo;
 
 // Variáveis:
-int senha[6] = {1, 1, 1, 1, 1, 1}, erros = 0, aux = 0, trancar = 0, servo = 0, digito, i, contagemAntes;
+int senha[6] = {5, 4, 3, 2, 1, 0}, erros = 0, aux = 0, trancar = 0, servo = 0, digito, i, contagemAntes;
 int *tentativa = (int*)malloc(7*sizeof(int));
 int contagem = 0;
+int fechadura = 10;
+int buzzer = 11;
+int enter = 12;
+int reset = 13;
 
 void setup() {
   Serial.begin(9600);
-  pinMode(0, INPUT_PULLUP);   // Dígito: 0
-  pinMode(1, INPUT_PULLUP);   // Dígito: 1
-  pinMode(2, INPUT_PULLUP);   // Dígito: 2
-  pinMode(3, INPUT_PULLUP);   // Dígito: 3
-  pinMode(4, INPUT_PULLUP);   // Dígito: 4
-  pinMode(5, INPUT_PULLUP);   // Dígito: 5
-  pinMode(6, INPUT_PULLUP);   // Dígito: 6
-  pinMode(7, INPUT_PULLUP);   // Dígito: 7
-  pinMode(9, OUTPUT);         // Servo
-  pinMode(8,OUTPUT);          // Buzer
-  pinMode(11, INPUT_PULLUP);   // Botão Enter
-  pinMode(10, INPUT_PULLUP);   // Botão limpa
-  myservo.attach(9);
+  pinMode(2, INPUT_PULLUP);   // Dígito: 0
+  pinMode(3, INPUT_PULLUP);   // Dígito: 1
+  pinMode(4, INPUT_PULLUP);   // Dígito: 2
+  pinMode(5, INPUT_PULLUP);   // Dígito: 3
+  pinMode(6, INPUT_PULLUP);   // Dígito: 4
+  pinMode(7, INPUT_PULLUP);   // Dígito: 5
+  pinMode(8, INPUT_PULLUP);   // Dígito: 6
+  pinMode(9, INPUT_PULLUP);   // Dígito: 7
+  pinMode(fechadura, OUTPUT);      // Servo
+  pinMode(buzzer,OUTPUT);          // Buzer
+  pinMode(enter, INPUT_PULLUP);    // Botão Enter
+  pinMode(reset, INPUT_PULLUP);    // Botão limpa
+  myservo.attach(servo);
 }
 
 // Preenche a tentata de senha com -1 para diferenciar de um tentativa com os botões
@@ -41,9 +45,14 @@ void PreencheTentativa(int digito, int contagem){
   }else
    tentativa[contagem] = digito;
   if(contagemAntes != contagem && contagem >= 1)
-    Serial.println(digito);
+    if(contagem <= 3){
+      Serial.println(digito);
+    }else{
+      Serial.println(digito); // ?????? colocar um espaço
+    }
   if(contagem == 6)
     Serial.println();
+  contagemAntes = contagem;
 }
 
 void loop() {
@@ -56,14 +65,14 @@ void loop() {
     aux = 1;
   }
 
-  if(trancar == 1 && !digitalRead(11)){
+  if(trancar == 1 && !digitalRead(reset)){
     myservo.write(0);
     Serial.println("COFRE TRANCADO.");
-    tone(9, 2093);
+    tone(buzzer, 2093);
     delay(300);
-    tone(9, 1046.5);
+    tone(buzzer, 1046.5);
     delay(200);
-    noTone(9);
+    noTone(buzzer);
     delay(5000);
     trancar = 0;
     IniciaTentativa();
@@ -72,39 +81,39 @@ void loop() {
   // Executa o codigo se o cofre estiver trancado
   if(trancar == 0){
     // Lê qual botão foi precionado
-    if(!digitalRead(0)){
+    if(!digitalRead(2)){
       digito = 0;
       contagem ++;
     }
-    if(!digitalRead(1)){
+    if(!digitalRead(3)){
       digito = 1;
       contagem ++;
     }
-    if(!digitalRead(2)){
+    if(!digitalRead(4)){
       digito = 2;
       contagem ++;
     }
-    if(!digitalRead(3)){
+    if(!digitalRead(5)){
       digito = 3;
       contagem ++;
     }
-    if(!digitalRead(4)){
+    if(!digitalRead(6)){
       digito = 4;
       contagem ++;
     }
-    if(!digitalRead(5)){
+    if(!digitalRead(7)){
       digito = 5;
       contagem ++;
     }
-    if(!digitalRead(6)){
+    if(!digitalRead(8)){
       digito = 6;
       contagem ++;
     }
-    if(!digitalRead(7)){
+    if(!digitalRead(9)){
       digito = 7;
       contagem ++;
     }
-    if(!digitalRead(10)){
+    if(!digitalRead(reset)){
       digito = -1;
       contagem = 0;
     }
@@ -118,13 +127,13 @@ void loop() {
         acertos++;
     }
     if(acertos == 6){
-      noTone(9);
+      noTone(buzzer);
       myservo.write(180);
-      tone(9, 1046.5);
+      tone(buzzer, 1046.5);
       delay(300);
-      tone(9, 2093);
+      tone(buzzer, 2093);
       delay(200);
-      noTone(9);
+      noTone(buzzer);
       Serial.println("SENHA CORRETA <3");
       delay(5000);
       IniciaTentativa();
@@ -142,9 +151,9 @@ void loop() {
        }else{
         Serial.println("TENTATIVA");
         }
-      tone(9, 587.32);
+      tone(buzzer, 587.32);
       delay(2000);
-      noTone(9);
+      noTone(buzzer);
       contagem = 0;
       aux = 0;
       erros++;
@@ -153,7 +162,7 @@ void loop() {
       Serial.println("SENHA INCORRETA");
       Serial.println("MULTIPLAS TENTATIVAS");
       delay(2000);
-      tone(9, 587.32);
+      tone(buzzer, 587.32);
       contagem = 0;
       IniciaTentativa;
       erros = 0;
