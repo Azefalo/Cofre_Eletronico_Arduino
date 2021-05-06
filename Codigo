@@ -153,6 +153,7 @@ void loop() {
         Serial.println("TENTATIVA");
         }
       tone(buzzer, 587);
+      delay(300);
       noTone(buzzer);
       delay(2000);
       contagem = 0;
@@ -163,11 +164,11 @@ void loop() {
       Serial.println("SENHA INCORRETA");
       Serial.println("MULTIPLAS TENTATIVAS");
       delay(2000);
-      tone(buzzer, 587);
-      noTone(buzzer);
+      tone(buzzer, 587.32);
+      delay(300);
       contagem = 0;
-      IniciaTentativa();
       erros = 0;
+      
     }
   }
 }
