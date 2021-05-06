@@ -1,3 +1,4 @@
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<Servo.h>
@@ -7,10 +8,10 @@ Servo myservo;
 int senha[6] = {5, 4, 3, 2, 1, 0}, erros = 0, aux = 0, trancar = 0, servo = 0, digito, i, contagemAntes;
 int *tentativa = (int*)malloc(7*sizeof(int));
 int contagem = 0;
-int fechadura = 10;
-int buzzer = 11;
-int enter = 12;
-int reset = 13;
+int fechadura = 11;
+int buzzer = 10;
+int enter = 13;
+int reset = 12;
 
 void setup() {
   Serial.begin(9600);
@@ -70,7 +71,7 @@ void loop() {
     Serial.println("COFRE TRANCADO.");
     tone(buzzer, 2093);
     delay(300);
-    tone(buzzer, 1046.5);
+    tone(buzzer, 146.5);
     delay(200);
     noTone(buzzer);
     delay(5000);
@@ -129,7 +130,7 @@ void loop() {
     if(acertos == 6){
       noTone(buzzer);
       myservo.write(180);
-      tone(buzzer, 1046.5);
+      tone(buzzer, 146.5);
       delay(300);
       tone(buzzer, 2093);
       delay(200);
@@ -151,7 +152,7 @@ void loop() {
        }else{
         Serial.println("TENTATIVA");
         }
-      tone(buzzer, 587.32);
+      tone(buzzer, 587);
       delay(2000);
       noTone(buzzer);
       contagem = 0;
@@ -162,7 +163,7 @@ void loop() {
       Serial.println("SENHA INCORRETA");
       Serial.println("MULTIPLAS TENTATIVAS");
       delay(2000);
-      tone(buzzer, 587.32);
+      tone(buzzer, 587);
       contagem = 0;
       IniciaTentativa;
       erros = 0;
