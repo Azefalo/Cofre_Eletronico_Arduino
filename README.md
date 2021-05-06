@@ -2,7 +2,9 @@
 
 Este é meu projeto final do disciplina Eletricidade E Eletrônica Na Prática da UTFPR - CT.
 
-Ele é um protótipo de cofre eletrônico, onde o servo é a fechadura.
+Ele é um protótipo de cofre eletrônico, contendo 8 dígitos (0 - 7), um
+pino para trancar o cofre (pino: 12) um sistema sonoro através do buzzer
+(pino: 10) e um servo (pino: 11) que é a fechadura interna do cofre.
 Seu funcionamneto consiste em: o circuito solicita a senha ao usuário
 (esta, foi configurada no código - 5, 4, 3, 2, 1, 0). O usuário, ao 
 clicar o botão correspondente (pinos: 2 - 9), aparece na tela o dígito
@@ -16,3 +18,5 @@ erre a senha, aparecerá "SENHA INCORRETA.", um pequeno som musical e
 o número de tentativas restantes ao usuário. Caso o número de tentativas
 for igual a 0, o alarme ficará ligado até que o usuário digite a senha 
 de forma correta.
+
+Link para foto: https://drive.google.com/file/d/1UmRkhBZf1ME43SlEKUzc8HtuRLth3E5g/view?usp=sharing
