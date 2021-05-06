@@ -5,6 +5,7 @@ Este é meu projeto final do disciplina Eletricidade E Eletrônica Na Prática d
 Ele é um protótipo de cofre eletrônico, contendo 8 dígitos (0 - 7), um
 pino para trancar o cofre (pino: 12) um sistema sonoro através do buzzer
 (pino: 10) e um servo (pino: 11) que é a fechadura interna do cofre.
+
 Seu funcionamneto consiste em: o circuito solicita a senha ao usuário
 (esta, foi configurada no código - 5, 4, 3, 2, 1, 0). O usuário, ao 
 clicar o botão correspondente (pinos: 2 - 9), aparece na tela o dígito
