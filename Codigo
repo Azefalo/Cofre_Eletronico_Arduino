@@ -30,7 +30,7 @@ void setup() {
   pinMode(9, INPUT_PULLUP);   // Dígito: 7
   pinMode(fechadura, OUTPUT);      // Servo
   pinMode(buzzer,OUTPUT);          // Buzer
-  pinMode(enter, INPUT_PULLUP);    // Botão Enter
+  pinMode(enter, INPUT_PULLUP);    // Botão Enter (trancar cofre)
   myservo.attach(servo);
 }
 
